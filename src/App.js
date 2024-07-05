@@ -142,42 +142,42 @@ const database = [
         text: "Great! See you then.",
       },
       {
-        time: new Date("2024-07-05 12:15:10"),
+        time: new Date("2024-07-06 12:15:10"),
         sent: true,
         text: "How did the presentation go?",
       },
       {
-        time: new Date("2024-07-05 12:20:30"),
+        time: new Date("2024-07-06 12:20:30"),
         sent: false,
         text: "It went really well. Thanks for your help!",
       },
       {
-        time: new Date("2024-07-05 14:25:30"),
+        time: new Date("2024-07-06 14:25:30"),
         sent: true,
         text: "Want to join us for a movie tonight?",
       },
       {
-        time: new Date("2024-07-05 14:30:10"),
+        time: new Date("2024-07-06 14:30:10"),
         sent: false,
         text: "I'd love to! What time?",
       },
       {
-        time: new Date("2024-07-05 14:32:30"),
+        time: new Date("2024-07-06 14:32:30"),
         sent: true,
         text: "8 PM. See you there!",
       },
       {
-        time: new Date("2024-07-05 16:15:10"),
+        time: new Date("2024-07-06 16:15:10"),
         sent: false,
         text: "Can you send me the files from the last meeting?",
       },
       {
-        time: new Date("2024-07-05 16:20:10"),
+        time: new Date("2024-07-06 16:20:10"),
         sent: true,
         text: "Sure, I'll send them over right now.",
       },
       {
-        time: new Date("2024-07-05 16:25:30"),
+        time: new Date("2024-07-06 16:25:30"),
         sent: false,
         text: "Got them. Thanks!",
       },
@@ -240,7 +240,7 @@ const database = [
   },
   {
     id: 789456,
-    name: "Milovan",
+    name: "Milo",
     image: "https://i.pravatar.cc/48?u=789455",
     messages: [
       {
@@ -299,32 +299,32 @@ const database = [
         text: "Sure, I'll be available after 10 AM.",
       },
       {
-        time: new Date("2024-07-05 15:20:10"),
+        time: new Date("2024-07-06 15:20:10"),
         sent: true,
         text: "I'm organizing a team dinner this Friday. Are you in?",
       },
       {
-        time: new Date("2024-07-05 15:25:10"),
+        time: new Date("2024-07-06 15:25:10"),
         sent: false,
         text: "Count me in! What time?",
       },
       {
-        time: new Date("2024-07-05 15:30:10"),
+        time: new Date("2024-07-06 15:30:10"),
         sent: true,
         text: "7 PM at the Italian place.",
       },
       {
-        time: new Date("2024-07-05 17:15:10"),
+        time: new Date("2024-07-06 17:15:10"),
         sent: false,
         text: "Perfect! Looking forward to it.",
       },
       {
-        time: new Date("2024-07-05 10:25:10"),
+        time: new Date("2024-07-06 10:25:10"),
         sent: true,
         text: "Do you have the latest update on the client meeting?",
       },
       {
-        time: new Date("2024-07-05 10:30:10"),
+        time: new Date("2024-07-06 10:30:10"),
         sent: false,
         text: "Yes, I'll send it to you right now.",
       },
@@ -387,7 +387,7 @@ const database = [
   },
   {
     id: 654321,
-    name: "Filip",
+    name: "Philip",
     image: "https://i.pravatar.cc/48?u=654321",
     messages: [
       {
@@ -446,37 +446,37 @@ const database = [
         text: "Sorry, I have a meeting. Maybe tomorrow?",
       },
       {
-        time: new Date("2024-07-05 09:20:10"),
+        time: new Date("2024-07-06 09:20:10"),
         sent: false,
         text: "Sure, let's plan for tomorrow then.",
       },
       {
-        time: new Date("2024-07-05 09:25:10"),
+        time: new Date("2024-07-06 09:25:10"),
         sent: true,
         text: "Sounds good.",
       },
       {
-        time: new Date("2024-07-05 12:15:10"),
+        time: new Date("2024-07-06 12:15:10"),
         sent: true,
         text: "Are you attending the conference next month?",
       },
       {
-        time: new Date("2024-07-05 12:20:10"),
+        time: new Date("2024-07-06 12:20:10"),
         sent: false,
         text: "Yes, I've already registered. Are you?",
       },
       {
-        time: new Date("2024-07-05 12:25:10"),
+        time: new Date("2024-07-06 12:25:10"),
         sent: true,
         text: "Yes, looking forward to it.",
       },
       {
-        time: new Date("2024-07-05 14:30:10"),
+        time: new Date("2024-07-06 14:30:10"),
         sent: false,
         text: "Have you seen the latest project update?",
       },
       {
-        time: new Date("2024-07-05 14:35:10"),
+        time: new Date("2024-07-06 14:35:10"),
         sent: true,
         text: "Yes, it's impressive. We're making good progress.",
       },
@@ -489,7 +489,7 @@ const database = [
   },
   {
     id: 987655,
-    name: "Sam",
+    name: "Luba",
     image: "https://i.pravatar.cc/48?u=987654",
     messages: [
       {
@@ -553,32 +553,32 @@ const database = [
         text: "How about that new place near the park?",
       },
       {
-        time: new Date("2024-07-05 09:30:10"),
+        time: new Date("2024-07-06 09:30:10"),
         sent: false,
         text: "Sounds good. See you there at 12 PM?",
       },
       {
-        time: new Date("2024-07-05 09:35:10"),
+        time: new Date("2024-07-06 09:35:10"),
         sent: true,
         text: "Perfect! See you tomorrow.",
       },
       {
-        time: new Date("2024-07-05 14:25:10"),
+        time: new Date("2024-07-06 14:25:10"),
         sent: false,
         text: "Did you hear about the changes in the project timeline?",
       },
       {
-        time: new Date("2024-07-05 14:30:10"),
+        time: new Date("2024-07-06 14:30:10"),
         sent: true,
         text: "Yes, I got the update. It's going to be challenging, but we'll manage.",
       },
       {
-        time: new Date("2024-07-05 16:20:10"),
+        time: new Date("2024-07-06 16:20:10"),
         sent: true,
         text: "Can you review the presentation slides for tomorrow?",
       },
       {
-        time: new Date("2024-07-05 16:25:10"),
+        time: new Date("2024-07-06 16:25:10"),
         sent: false,
         text: "Sure, I'll take a look and give you feedback.",
       },
@@ -655,17 +655,17 @@ const database = [
         text: "Will do!",
       },
       {
-        time: new Date("2024-07-05 14:30:10"),
+        time: new Date("2024-07-06 14:30:10"),
         sent: false,
         text: "Are you attending the conference next month?",
       },
       {
-        time: new Date("2024-07-05 14:35:10"),
+        time: new Date("2024-07-06 14:35:10"),
         sent: true,
         text: "Yes, I've already registered. Are you going?",
       },
       {
-        time: new Date("2024-07-05 14:40:10"),
+        time: new Date("2024-07-06 14:40:10"),
         sent: false,
         text: "Not sure yet, but I'll let you know.",
       },
@@ -722,17 +722,17 @@ const database = [
         text: "Looking forward to it.",
       },
       {
-        time: new Date("2024-07-05 13:30:10"),
+        time: new Date("2024-07-06 13:30:10"),
         sent: true,
         text: "Can you send me the presentation slides by tomorrow?",
       },
       {
-        time: new Date("2024-07-05 13:35:10"),
+        time: new Date("2024-07-06 13:35:10"),
         sent: false,
         text: "Sure, I'll email them to you later today.",
       },
       {
-        time: new Date("2024-07-05 15:25:10"),
+        time: new Date("2024-07-06 15:25:10"),
         sent: true,
         text: "Thanks! Let's meet to discuss it.",
       },
@@ -1185,7 +1185,11 @@ function Contact({ contact, onSelection }) {
           </div>
         </div>
         <p className="message-text">
-          {contact.messages[contact.messages.length - 1].text}
+          {
+            contact.messages.sort(
+              (a, b) => new Date(b.time) - new Date(a.time)
+            )[0].text
+          }
         </p>
       </div>
     </div>

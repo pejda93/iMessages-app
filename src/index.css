@@ -210,7 +210,7 @@ MESSAGES
 ********************************/
 
 .conversation {
-  padding: 0.5rem 1rem 1rem 1rem;
+  padding: 0rem 1rem 1rem 1rem;
   overflow-y: auto;
   overflow-x: hidden;
   margin-bottom: auto;
@@ -278,6 +278,7 @@ MESSAGES
 .message__time {
   align-self: center;
   color: #888;
+  padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
 
