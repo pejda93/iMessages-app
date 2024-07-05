@@ -1,31 +1,9 @@
 import { useState } from "react";
 
 const database = [
-  // {
-  //   id: 123125,
-  //   name: "Test",
-  //   image: "https://i.pravatar.cc/48?u=123125",
-  //   messages: [
-  //     {
-  //       time: new Date("2024-06-15 10:25:15"),
-  //       sent: false,
-  //       text: "Middle message?",
-  //     },
-  //     {
-  //       time: new Date("2024-06-15 10:25:16"),
-  //       sent: false,
-  //       text: "Lastest messages?",
-  //     },
-  //     {
-  //       time: new Date("2024-06-15 10:25:11"),
-  //       sent: false,
-  //       text: "First messages?",
-  //     },
-  //   ],
-  // },
   {
-    id: 130701,
-    name: "Mladen",
+    id: 111222,
+    name: "Tom",
     image: "https://i.pravatar.cc/48?u=130701",
     messages: [
       {
@@ -66,8 +44,8 @@ const database = [
     ],
   },
   {
-    id: 310793,
-    name: "Jovanka",
+    id: 333333,
+    name: "Susan",
     image: "https://i.pravatar.cc/48?u=310793",
     messages: [
       {
@@ -98,8 +76,8 @@ const database = [
     ],
   },
   {
-    id: 123125,
-    name: "Jovan",
+    id: 444555,
+    name: "Emily",
     image: "https://i.pravatar.cc/48?u=123125",
     messages: [],
   },
@@ -511,7 +489,7 @@ const database = [
   },
   {
     id: 987655,
-    name: "Ljuba",
+    name: "Sam",
     image: "https://i.pravatar.cc/48?u=987654",
     messages: [
       {
