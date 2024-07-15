@@ -402,3 +402,20 @@ NEW MESSAGES
   font-size: 1.1rem;
   width: 100%;
 }
+
+/*Scroll CSS*/
+.contacts::-webkit-scrollbar,
+.conversation::-webkit-scrollbar {
+  width: 8px; /* Širina scroll bara */
+}
+
+.contacts::-webkit-scrollbar,
+.conversation::-webkit-scrollbar-track {
+  background-color: transparent; /* Boja pozadine traga */
+}
+
+.contacts::-webkit-scrollbar,
+.conversation::-webkit-scrollbar-thumb {
+  background-color: #c4c4c4; /* Boja thumb-a scroll bara */
+  border-radius: 8px; /* Zaobljeni uglovi thumb-a */
+}

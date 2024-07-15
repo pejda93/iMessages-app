@@ -1,6 +1,28 @@
 const database = [
+  // {
+  //   id: 123125,
+  //   name: "Test",
+  //   image: "https://i.pravatar.cc/48?u=123125",
+  //   messages: [
+  //     {
+  //       time: new Date("2024-06-15 10:25:15"),
+  //       sent: false,
+  //       text: "Middle message?",
+  //     },
+  //     {
+  //       time: new Date("2024-06-15 10:25:16"),
+  //       sent: false,
+  //       text: "Lastest messages?",
+  //     },
+  //     {
+  //       time: new Date("2024-06-15 10:25:11"),
+  //       sent: false,
+  //       text: "First messages?",
+  //     },
+  //   ],
+  // },
   {
-    id: 111222,
+    id: 130701,
     name: "Tom",
     image: "https://i.pravatar.cc/48?u=130701",
     messages: [
@@ -42,9 +64,9 @@ const database = [
     ],
   },
   {
-    id: 333333,
-    name: "Susan",
-    image: "https://i.pravatar.cc/48?u=310793",
+    id: 310700,
+    name: "Emily",
+    image: "https://i.pravatar.cc/48?u=310700",
     messages: [
       {
         time: new Date("2024-06-19 10:30:10"),
@@ -52,7 +74,7 @@ const database = [
         text: "Hello, it is Jovanka. How is it going?",
       },
       {
-        time: new Date("2024-06-19 10:36:12"),
+        time: new Date("2024-06-19 10:30:12"),
         sent: false,
         text: "Whant to go out for a coffee?",
       },
@@ -74,14 +96,14 @@ const database = [
     ],
   },
   {
-    id: 444555,
-    name: "Emily",
+    id: 123125,
+    name: "Jovan",
     image: "https://i.pravatar.cc/48?u=123125",
     messages: [],
   },
   {
     id: 456789,
-    name: "Jack",
+    name: "Milan",
     image: "https://i.pravatar.cc/48?u=456785",
     messages: [
       {

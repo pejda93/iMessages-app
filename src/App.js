@@ -83,26 +83,37 @@ export default function App() {
       setSelectedContact(null);
     }
   }
-
   function handleReceiverInput(receiver, submit) {
+    if (typeof selectedContact === "object" && selectedContact !== null) {
+      receiver = selectedContact.name;
+    }
     const result = contacts.find(
-      ({ name }) => name.toLocaleLowerCase() === receiver.toLocaleLowerCase()
+      ({ name }) => name.toLowerCase() === receiver.toLowerCase()
     );
 
     if (result && submit) {
-      setShowNewMessage(false);
-      setSelectedContact(result);
-      return;
+      setShowNewMessage((c) => false);
+      setSelectedContact((c) => result);
+      return result;
     } else {
-      setSelectedContact(receiver);
+      setSelectedContact((c) => receiver);
     }
   }
 
   function addMessage(newMessage) {
+    const name = selectedContact.name ? selectedContact.name : selectedContact;
     setContacts((prevDatabase) => {
       return prevDatabase.map((contact) => {
-        if (contact.name === selectedContact.name) {
+        if (
+          contact.name.toLowerCase() === name.toLowerCase() &&
+          contact.messages[contact.messages.length - 1]?.time !==
+            newMessage.time
+        ) {
+          /*Ovaj drugi USLOV time !== time kada se skloni pojavljuje se BUG da kada otvorimo newMessage i unesemo ime vec postojeceg kontakta i posaljemo poruku poruka se iz NEPOZNATOG razloga ispisuje dvaput. Poruke se ispisuje dvaput samo tada. Pretpostavka da je zbog metode handleReceiverInput koja sadrzi setShowNewMessage i setSelectedContact jedno za drugim da se dvaput renderuje aplikacija i samim tim dvaput ubacuje poruka u niz pomocu metode addMessage. Tako da ovo je samo zakrpa a pravi razlog i resenje nisam nasao.*/
           contact.messages = [...contact.messages, newMessage];
+          console.log(
+            `Message added and selectedContact: ${selectedContact} first message:${contacts[4]?.messages[28]?.text} second message: ${contacts[4]?.messages[29]?.text}`
+          );
         }
         return contact;
       });
@@ -110,9 +121,10 @@ export default function App() {
   }
 
   function handleSendMessage(message) {
+    const result = handleReceiverInput(selectedContact, true);
     message = message.trim();
     const newMessage = { time: new Date(), sent: true, text: `${message}` };
-    if (typeof selectedContact === "object" && selectedContact !== null) {
+    if (result) {
       addMessage(newMessage);
       return;
     } else {
@@ -124,13 +136,13 @@ export default function App() {
         messages: [newMessage],
       };
       setContacts((contacts) => [...contacts, newContact]);
-      setSelectedContact(newContact);
-      setShowNewMessage(false);
+      setSelectedContact(() => newContact);
+      setShowNewMessage(() => false);
     }
   }
 
   function handleSearch(input) {
-    setSearch(input);
+    setSearch((c) => input);
   }
 
   return (
@@ -146,7 +158,6 @@ export default function App() {
           />
         </div>
       )}
-
       {showNewMessage && (
         <div className="new-message">
           <NewMessage
@@ -159,7 +170,11 @@ export default function App() {
           />
         </div>
       )}
-
+      {/* Postoji BUG, da kada se otvori NewMessage i doda poruka tako sto se
+      postavi selectedContact u inputu i njemu doda nova poruka. Ranije je bila logika da
+      kada nema selectedContact bude prikazan contactList a kada je
+      selectedContact true da budu prikazane njegove poruke. BUG je sto kada se doda nova poruka sledeca stavka bude otvaranje poruka selectedContacta i samim tim se doda poruka jos jednom. Medjutim kasnije sam pretposavio da ovo nije razlog BUGa nego dve setState naredbe koje dvaput renceruju aplikaciju. Jos uvek pravi razlog nisam nasao ali sam sredio fix koji konkretan BUG samo sklanja ali ne resava. 
+      TODO Resiti BUG da kada se otvori NewMessage i unese u input vec postojeci kontakt poruka ispise samo jednom ali bez FIXa na 109 liniji koda u addMessage funkciji.*/}
       {selectedContact && (
         <div className="message-view">
           <MessageView
@@ -287,7 +302,7 @@ function MessageView({ selectedContact, onSelection }) {
           <figure className="sender">
             <img
               src={selectedContact.image}
-              alt="contact picture"
+              alt="contact"
               className="sender__image"
             />
 
@@ -307,11 +322,21 @@ function MessageView({ selectedContact, onSelection }) {
 }
 
 function Messages({ selectedContact }) {
-  //TODO namesti da pocetna pozicija scrolla bude na dnu
   const isMoreThanFiveMinutesLater = (date1, date2) => {
     const fiveMinutesInMillis = 5 * 60 * 1000;
     return date2.getTime() - date1.getTime() > fiveMinutesInMillis;
   };
+
+  /* Skrolovanje do poslednje poruke na dnu elementa*/
+  function scrollToElementBottom() {
+    const element = document.querySelector(".conversation");
+    if (element) {
+      element.scrollTop = element.scrollHeight;
+    }
+  }
+
+  // Inline JavaScript u JSX kodu za pozivanje funkcije pri renderovanju
+  setTimeout(scrollToElementBottom, 0);
 
   return (
     <div className="conversation">
@@ -344,7 +369,12 @@ function Messages({ selectedContact }) {
           }
 
           return (
-            <Message message={message} stampTime={stampTime} isLast={isLast} />
+            <Message
+              message={message}
+              stampTime={stampTime}
+              isLast={isLast}
+              key={message.time}
+            />
           );
         })}
     </div>
@@ -380,7 +410,7 @@ function InputBox({ selectedContact, onSend }) {
     if (selectedContact === null) return;
 
     onSend(inputMessage);
-    setInputMessage("");
+    setInputMessage((c) => "");
   }
 
   return (
@@ -390,7 +420,7 @@ function InputBox({ selectedContact, onSend }) {
         type="text"
         placeholder="iMessage"
         value={inputMessage}
-        onChange={(e) => setInputMessage(e.target.value)}
+        onChange={(e) => setInputMessage((c) => e.target.value)}
       />
       {inputMessage === "" ? (
         <ion-icon
@@ -421,7 +451,7 @@ function NewMessage({ onClick, onReceiverInput }) {
   function handleChange(e) {
     e.preventDefault();
 
-    if (!e.target.value) return;
+    // if (!e.target.value) return;
 
     onReceiverInput(e.target.value, false);
   }
