@@ -1,70 +1,6 @@
 import { useState } from "react";
 import database from "./database";
 
-function formatDate(date) {
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  const now = new Date();
-  const messageDate = new Date(date);
-
-  const isToday = now.toDateString() === messageDate.toDateString();
-  const isThisWeek =
-    now - messageDate < 7 * 24 * 60 * 60 * 1000 &&
-    now.getDay() >= messageDate.getDay();
-
-  if (isToday) {
-    const hours = messageDate.getHours().toString().padStart(2, "0");
-    const minutes = messageDate.getMinutes().toString().padStart(2, "0");
-    return `${hours}:${minutes}`;
-  } else if (isThisWeek) {
-    return daysOfWeek[messageDate.getDay()];
-  } else {
-    const day = messageDate.getDate().toString().padStart(2, "0");
-    const month = (messageDate.getMonth() + 1).toString().padStart(2, "0"); // Meseci idu od 0 do 11
-    const year = messageDate.getFullYear().toString().slice(-2); // Zadnje dve cifre godine
-    return `${day}/${month}/${year}`;
-  }
-}
-
-function formatMessageDate(date) {
-  const now = new Date();
-  const messageDate = new Date(date);
-
-  const isSameDay = now.toDateString() === messageDate.toDateString();
-  const isYesterday =
-    new Date(now.setDate(now.getDate() - 1)).toDateString() ===
-    messageDate.toDateString();
-  const isSameWeek =
-    now - messageDate < 7 * 24 * 60 * 60 * 1000 &&
-    now.getDay() >= messageDate.getDay();
-
-  const options = { hour: "2-digit", minute: "2-digit" };
-
-  if (isSameDay) {
-    return messageDate.toLocaleTimeString([], options);
-  } else if (isYesterday) {
-    return `Yesterday at ${messageDate.toLocaleTimeString([], options)}`;
-  } else if (isSameWeek) {
-    return `${messageDate.toLocaleDateString("en-GB", {
-      weekday: "long",
-    })} at ${messageDate.toLocaleTimeString([], options)}`;
-  } else {
-    return `${messageDate.toLocaleDateString("sr-RS", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "2-digit",
-    })} at ${messageDate.toLocaleTimeString([], options)}`;
-  }
-}
-
 export default function App() {
   const [contacts, setContacts] = useState(database);
   const [showNewMessage, setShowNewMessage] = useState(false);
@@ -72,7 +8,6 @@ export default function App() {
   const [search, setSearch] = useState("");
 
   function handleSelection(contact) {
-    // setSelectedFriend(friend);
     setSelectedContact((cur) => (cur?.name === contact.name ? null : contact));
   }
 
@@ -85,39 +20,41 @@ export default function App() {
   }
   function handleReceiverInput(receiver, submit) {
     if (typeof selectedContact === "object" && selectedContact !== null) {
-      receiver = selectedContact.name;
+      return selectedContact;
     }
-    const result = contacts.find(
-      ({ name }) => name.toLowerCase() === receiver.toLowerCase()
-    );
 
-    if (result && submit) {
-      setShowNewMessage((c) => false);
-      setSelectedContact((c) => result);
-      return result;
-    } else {
-      setSelectedContact((c) => receiver);
+    if (receiver && submit) {
+      const result = contacts.find(
+        ({ name }) => name.toLowerCase() === receiver.toLowerCase()
+      );
+      if (result !== undefined) {
+        setShowNewMessage((c) => false);
+        setSelectedContact((c) => result);
+        return result;
+      }
     }
+    setSelectedContact((c) => receiver);
+    return undefined;
   }
 
   function addMessage(newMessage) {
     const name = selectedContact.name ? selectedContact.name : selectedContact;
-    setContacts((prevDatabase) => {
-      return prevDatabase.map((contact) => {
-        if (
-          contact.name.toLowerCase() === name.toLowerCase() &&
-          contact.messages[contact.messages.length - 1]?.time !==
-            newMessage.time
-        ) {
-          /*Ovaj drugi USLOV time !== time kada se skloni pojavljuje se BUG da kada otvorimo newMessage i unesemo ime vec postojeceg kontakta i posaljemo poruku poruka se iz NEPOZNATOG razloga ispisuje dvaput. Poruke se ispisuje dvaput samo tada. Pretpostavka da je zbog metode handleReceiverInput koja sadrzi setShowNewMessage i setSelectedContact jedno za drugim da se dvaput renderuje aplikacija i samim tim dvaput ubacuje poruka u niz pomocu metode addMessage. Tako da ovo je samo zakrpa a pravi razlog i resenje nisam nasao.*/
-          contact.messages = [...contact.messages, newMessage];
-          console.log(
-            `Message added and selectedContact: ${selectedContact} first message:${contacts[4]?.messages[28]?.text} second message: ${contacts[4]?.messages[29]?.text}`
-          );
+    let updatedContact;
+
+    setContacts((contacts) =>
+      contacts.map((contact) => {
+        if (contact.name.toLowerCase() === name.toLowerCase()) {
+          updatedContact = {
+            ...contact,
+            messages: [...contact.messages, newMessage],
+          };
+          return { ...contact, messages: [...contact.messages, newMessage] };
+        } else {
+          return contact;
         }
-        return contact;
-      });
-    });
+      })
+    );
+    setSelectedContact((prevContact) => updatedContact);
   }
 
   function handleSendMessage(message) {
@@ -126,7 +63,6 @@ export default function App() {
     const newMessage = { time: new Date(), sent: true, text: `${message}` };
     if (result) {
       addMessage(newMessage);
-      return;
     } else {
       const id = crypto.randomUUID();
       const newContact = {
@@ -170,11 +106,7 @@ export default function App() {
           />
         </div>
       )}
-      {/* Postoji BUG, da kada se otvori NewMessage i doda poruka tako sto se
-      postavi selectedContact u inputu i njemu doda nova poruka. Ranije je bila logika da
-      kada nema selectedContact bude prikazan contactList a kada je
-      selectedContact true da budu prikazane njegove poruke. BUG je sto kada se doda nova poruka sledeca stavka bude otvaranje poruka selectedContacta i samim tim se doda poruka jos jednom. Medjutim kasnije sam pretposavio da ovo nije razlog BUGa nego dve setState naredbe koje dvaput renceruju aplikaciju. Jos uvek pravi razlog nisam nasao ali sam sredio fix koji konkretan BUG samo sklanja ali ne resava. 
-      TODO Resiti BUG da kada se otvori NewMessage i unese u input vec postojeci kontakt poruka ispise samo jednom ali bez FIXa na 109 liniji koda u addMessage funkciji.*/}
+
       {selectedContact && (
         <div className="message-view">
           <MessageView
@@ -253,13 +185,14 @@ function ContactList({ contactList, onSelection, searchInput }) {
             contact={contact}
             key={contact.id}
             onSelection={onSelection}
+            searchInput={searchInput}
           />
         ))}
     </ul>
   );
 }
 
-function Contact({ contact, onSelection }) {
+function Contact({ contact, onSelection, searchInput }) {
   return (
     <div className="contact" onClick={() => onSelection(contact)}>
       <img src={contact.image} alt="contact" className="contact__image" />
@@ -279,9 +212,13 @@ function Contact({ contact, onSelection }) {
         </div>
         <p className="message-text">
           {
-            contact.messages.sort(
-              (a, b) => new Date(b.time) - new Date(a.time)
-            )[0].text
+            contact.messages
+              .filter((message) =>
+                message.text
+                  .toLowerCase()
+                  .includes(searchInput.trim().toLowerCase())
+              )
+              .sort((a, b) => new Date(b.time) - new Date(a.time))[0].text
           }
         </p>
       </div>
@@ -468,4 +405,68 @@ function NewMessage({ onClick, onReceiverInput }) {
       </form>
     </div>
   );
+}
+
+function formatDate(date) {
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  const now = new Date();
+  const messageDate = new Date(date);
+
+  const isToday = now.toDateString() === messageDate.toDateString();
+  const isThisWeek =
+    now - messageDate < 7 * 24 * 60 * 60 * 1000 &&
+    now.getDay() >= messageDate.getDay();
+
+  if (isToday) {
+    const hours = messageDate.getHours().toString().padStart(2, "0");
+    const minutes = messageDate.getMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  } else if (isThisWeek) {
+    return daysOfWeek[messageDate.getDay()];
+  } else {
+    const day = messageDate.getDate().toString().padStart(2, "0");
+    const month = (messageDate.getMonth() + 1).toString().padStart(2, "0"); // Meseci idu od 0 do 11
+    const year = messageDate.getFullYear().toString().slice(-2); // Zadnje dve cifre godine
+    return `${day}/${month}/${year}`;
+  }
+}
+
+function formatMessageDate(date) {
+  const now = new Date();
+  const messageDate = new Date(date);
+
+  const isSameDay = now.toDateString() === messageDate.toDateString();
+  const isYesterday =
+    new Date(now.setDate(now.getDate() - 1)).toDateString() ===
+    messageDate.toDateString();
+  const isSameWeek =
+    now - messageDate < 7 * 24 * 60 * 60 * 1000 &&
+    now.getDay() >= messageDate.getDay();
+
+  const options = { hour: "2-digit", minute: "2-digit" };
+
+  if (isSameDay) {
+    return messageDate.toLocaleTimeString([], options);
+  } else if (isYesterday) {
+    return `Yesterday at ${messageDate.toLocaleTimeString([], options)}`;
+  } else if (isSameWeek) {
+    return `${messageDate.toLocaleDateString("en-GB", {
+      weekday: "long",
+    })} at ${messageDate.toLocaleTimeString([], options)}`;
+  } else {
+    return `${messageDate.toLocaleDateString("sr-RS", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+    })} at ${messageDate.toLocaleTimeString([], options)}`;
+  }
 }

@@ -22,9 +22,9 @@ const database = [
   //   ],
   // },
   {
-    id: 130701,
+    id: 130801,
     name: "Tom",
-    image: "https://i.pravatar.cc/48?u=130701",
+    image: "https://i.pravatar.cc/48?u=130801",
     messages: [
       {
         time: new Date("2024-06-18 10:25:10"),
@@ -61,17 +61,22 @@ const database = [
         sent: false,
         text: "Are you available tomorrow?",
       },
+      {
+        time: new Date("2024-06-18 10:35:30"),
+        sent: false,
+        text: "What are you talking about?",
+      },
     ],
   },
   {
-    id: 310700,
+    id: 310800,
     name: "Emily",
-    image: "https://i.pravatar.cc/48?u=310700",
+    image: "https://i.pravatar.cc/48?u=310800",
     messages: [
       {
         time: new Date("2024-06-19 10:30:10"),
         sent: false,
-        text: "Hello, it is Jovanka. How is it going?",
+        text: "Hello, it is John. How is it going?",
       },
       {
         time: new Date("2024-06-19 10:30:12"),
@@ -81,7 +86,7 @@ const database = [
       {
         time: new Date("2024-06-19 10:30:15"),
         sent: true,
-        text: "Hi Jovanka. Great, thanks!",
+        text: "Hi John. Great, thanks!",
       },
       {
         time: new Date("2024-06-19 10:30:19"),
@@ -103,7 +108,7 @@ const database = [
   },
   {
     id: 456789,
-    name: "Milan",
+    name: "Mike",
     image: "https://i.pravatar.cc/48?u=456785",
     messages: [
       {
@@ -260,7 +265,7 @@ const database = [
   },
   {
     id: 789456,
-    name: "Milo",
+    name: "Pol",
     image: "https://i.pravatar.cc/48?u=789455",
     messages: [
       {
@@ -509,13 +514,13 @@ const database = [
   },
   {
     id: 987655,
-    name: "Luba",
-    image: "https://i.pravatar.cc/48?u=987654",
+    name: "Liv",
+    image: "https://i.pravatar.cc/48?u=987678",
     messages: [
       {
         time: new Date("2024-07-01 14:25:10"),
         sent: false,
-        text: "Hi Ljuba, how was your weekend?",
+        text: "Hi Liv, how was your weekend?",
       },
       {
         time: new Date("2024-07-01 14:30:10"),
@@ -693,7 +698,7 @@ const database = [
   },
   {
     id: 135792,
-    name: "Marko",
+    name: "Marc",
     image: "https://i.pravatar.cc/48?u=135792",
     messages: [
       {
@@ -901,13 +906,13 @@ const database = [
   },
   {
     id: 753951,
-    name: "Marija",
+    name: "Maria",
     image: "https://i.pravatar.cc/48?u=753952",
     messages: [
       {
         time: new Date("2024-07-01 12:25:10"),
         sent: false,
-        text: "Hey Marija! How's your day going?",
+        text: "Hey Maria! How's your day going?",
       },
       {
         time: new Date("2024-07-01 12:30:10"),
