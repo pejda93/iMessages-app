@@ -1,71 +1,112 @@
-# Getting Started with Create React App
+# iMessages App
 
-Link to the application: https://message-app-pejda.netlify.app/
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React demo that recreates a compact iMessage-style messaging interface. The app lets you browse conversations, search contacts and message text, open a chat, compose a new message, and start a new conversation from static sample data.
+
+Live demo: https://message-app-pejda.netlify.app/
+
+## Features
+
+- Contact list sorted by latest message
+- Search by contact name or message content
+- Conversation view with sent and received message bubbles
+- Time grouping for messages
+- New-message flow for existing or new contacts
+- Avatar images generated from contact ids
+- Responsive phone-style app frame
+
+## Tech Stack
+
+- React 18
+- Create React App / `react-scripts`
+- CSS
+- Ionicons loaded from CDN
+- Static in-memory data
+
+## Project Structure
+
+```text
+public/
+  index.html        HTML template and external icon scripts
+  manifest.json     PWA metadata
+src/
+  App.js            Main application, components, and state logic
+  database.js       Static contact and message data
+  index.css         Global styles
+  index.js          React entry point
+package.json        Scripts and dependencies
+```
+
+## Getting Started
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm start
+```
+
+Open http://localhost:3000 in your browser.
+
+On Windows PowerShell, if `npm` is blocked by execution policy, run the command through `npm.cmd` instead:
+
+```bash
+npm.cmd start
+```
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the app in development mode.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Creates an optimized production build in the `build/` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Runs the Create React App test runner.
 
-### `npm run eject`
+No automated tests are currently included, so the test command exits with "No tests found" unless you pass `--passWithNoTests`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Data Model
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Messages are stored in `src/database.js` as static JavaScript objects:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```js
+{
+  id: 130801,
+  name: "Tom",
+  image: "https://i.pravatar.cc/48?u=130801",
+  messages: [
+    {
+      time: new Date("2024-06-18 10:25:10"),
+      sent: false,
+      text: "Hello, how is it going?"
+    }
+  ]
+}
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Messages sent in the UI are kept only in React state. They are not saved after refreshing the page.
 
-## Learn More
+## Development Notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- The app is front-end only and does not use a backend or database.
+- `node_modules/` and `build/` are ignored by Git.
+- Icons depend on the Ionicons CDN configured in `public/index.html`.
+- Avatars depend on the external `i.pravatar.cc` image service.
+- The README and public metadata should be updated if the app name, deployment URL, or product direction changes.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Future Improvements
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Add automated tests for search, message sending, and contact creation.
+- Persist messages with `localStorage` or a backend service.
+- Split `App.js` into smaller components and utility modules.
+- Improve accessibility by using buttons and labels for interactive icons.
+- Replace external runtime assets with local assets where reliability matters.
